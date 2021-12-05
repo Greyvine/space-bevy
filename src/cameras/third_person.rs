@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 use crate::cameras::event::*;
 use crate::cameras::tag::*;
-use crate::mouse::*;
+use crate::look::*;
 
 pub struct ThirdPersonCameraPlugin;
 

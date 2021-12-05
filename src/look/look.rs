@@ -1,5 +1,6 @@
-use crate::mouse::*;
 use bevy::prelude::*;
+
+use super::MouseSettings;
 
 #[derive(Clone, Copy)]
 pub struct LookDirection {
