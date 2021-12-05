@@ -1,5 +1,5 @@
 [package]
-name = "space-bevy"
+name = "space"
 version = "0.1.0"
 authors = ["GUTTERTRASH <shagohad@gmail.com>"]
 edition = "2018"
@@ -8,4 +8,5 @@ edition = "2018"
 
 [dependencies]
 bevy = { version = "0.5.0", features = ["dynamic"] }
-bevy_flycam = "*"
+# bevy_flycam = "*"
+rand = "0.8"
