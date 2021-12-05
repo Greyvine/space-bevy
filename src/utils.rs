@@ -1,5 +1,5 @@
-use crate::controller::*;
-use crate::event::*;
+use crate::cameras::tag::*;
+use crate::controllers::tag::*;
 use crate::look::*;
 use bevy::prelude::*;
 use rand::Rng;
@@ -105,21 +105,6 @@ pub fn spawn_character(
 
     commands.entity(yaw).push_children(&[body_model, head]);
     commands.entity(head).push_children(&[head_model, camera]);
-
-    // commands
-    //     .entity(body)
-    //     .insert(LookEntity(camera))
-    //     .push_children(&[yaw]);
-
-    // commands.entity(yaw).push_children(&[camera]);
-    //, camera;
-
-    // commands.entity(body_model).push_children(&[camera]);
-    // commands.entity(yaw)
-    //     .push_children(&[camera]);
-
-    // commands.entity(body)
-    //     .push_children(&[body_model, camera]);
 }
 
 pub fn spawn_lights(mut commands: Commands) {
@@ -174,33 +159,5 @@ pub fn spawn_world(
             )),
             ..Default::default()
         });
-    }
-
-    // TODO Add Rapier Bundles
-    // .insert_bundle(RigidBodyBundle {
-    //     body_type: RigidBodyType::Static,
-    //     ..Default::default()
-    // })
-    // .insert_bundle(ColliderBundle {
-    //     shape: ColliderShape::cuboid(0.5 * box_xz, 0.5 * box_y, 0.5 * box_xz),
-    //     ..Default::default()
-    // });
-}
-
-pub fn controller_to_kinematic(
-    mut translations: EventReader<ForceEvent>,
-    mut query: Query<&mut Transform, With<BodyTag>>,
-) {
-    for mut transform in query.iter_mut() {
-        for translation in translations.iter() {
-            transform.translation += **translation;
-        }
-        // NOTE: This is just an example to stop falling past the initial body height
-        // With a physics engine you would indicate that the body has collided with
-        // something and should stop, depending on how your game works.
-        if transform.translation.y < 0.0 {
-            transform.translation.y = 0.0;
-            // controller.jumping = false;
-        }
     }
 }

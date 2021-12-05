@@ -1,4 +1,5 @@
-use crate::event::*;
+use crate::cameras::event::*;
+use crate::controllers::event::*;
 use bevy::prelude::*;
 
 pub fn print_input_events(

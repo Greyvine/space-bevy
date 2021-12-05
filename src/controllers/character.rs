@@ -1,4 +1,5 @@
-use crate::event::*;
+use crate::controllers::event::*;
+use crate::controllers::tag::*;
 use crate::look::*;
 use bevy::prelude::*;
 
@@ -6,21 +7,16 @@ pub const INPUT_TO_EVENTS_SYSTEM: &str = "input_to_events";
 pub const INPUT_TO_LOOK_SYSTEM: &str = "input_to_look";
 pub const FORWARD_UP_SYSTEM: &str = "forward_up";
 
-pub struct ControllerPlugin;
+pub struct CharacterControllerPlugin;
 
-impl Plugin for ControllerPlugin {
+impl Plugin for CharacterControllerPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.add_event::<ForceEvent>()
-            .add_event::<YawEvent>()
-            .add_event::<PitchEvent>()
             .add_system_to_stage(
                 CoreStage::PreUpdate,
                 handle_input.system().label(INPUT_TO_EVENTS_SYSTEM),
             )
-            .add_system_to_stage(
-                CoreStage::PreUpdate,
-                input_to_look.system().label(INPUT_TO_LOOK_SYSTEM),
-            )
+            .add_system(controller_to_kinematic.system())
             .add_system_to_stage(
                 CoreStage::PreUpdate,
                 forward_up
@@ -77,29 +73,20 @@ fn handle_input(
     }
 }
 
-pub struct YawTag;
-pub struct CameraTag;
-pub struct BodyTag;
-pub struct HeadTag;
-
-pub fn controller_to_yaw(
-    mut yaws: EventReader<YawEvent>,
-    mut query: Query<&mut Transform, With<YawTag>>,
+fn controller_to_kinematic(
+    mut translations: EventReader<ForceEvent>,
+    mut query: Query<&mut Transform, With<BodyTag>>,
 ) {
-    if let Some(yaw) = yaws.iter().next() {
-        for mut transform in query.iter_mut() {
-            transform.rotation = Quat::from_rotation_y(**yaw);
+    for mut transform in query.iter_mut() {
+        for translation in translations.iter() {
+            transform.translation += **translation;
         }
-    }
-}
-
-pub fn controller_to_pitch(
-    mut pitches: EventReader<PitchEvent>,
-    mut query: Query<&mut Transform, With<HeadTag>>,
-) {
-    if let Some(pitch) = pitches.iter().next() {
-        for mut transform in query.iter_mut() {
-            transform.rotation = Quat::from_rotation_ypr(0.0, **pitch, 0.0);
+        // NOTE: This is just an example to stop falling past the initial body height
+        // With a physics engine you would indicate that the body has collided with
+        // something and should stop, depending on how your game works.
+        if transform.translation.y < 0.0 {
+            transform.translation.y = 0.0;
+            // controller.jumping = false;
         }
     }
 }
