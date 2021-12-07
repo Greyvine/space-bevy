@@ -4,7 +4,6 @@ use crate::look::*;
 use bevy::prelude::*;
 
 pub const INPUT_TO_EVENTS_SYSTEM: &str = "input_to_events";
-pub const INPUT_TO_LOOK_SYSTEM: &str = "input_to_look";
 pub const FORWARD_UP_SYSTEM: &str = "forward_up";
 
 pub struct CharacterControllerPlugin;
@@ -22,8 +21,7 @@ impl Plugin for CharacterControllerPlugin {
                 forward_up
                     .system()
                     .label(FORWARD_UP_SYSTEM)
-                    .after(INPUT_TO_EVENTS_SYSTEM)
-                    .after(INPUT_TO_LOOK_SYSTEM),
+                    .after(INPUT_TO_EVENTS_SYSTEM),
             );
     }
 }
@@ -84,9 +82,9 @@ fn controller_to_kinematic(
         // NOTE: This is just an example to stop falling past the initial body height
         // With a physics engine you would indicate that the body has collided with
         // something and should stop, depending on how your game works.
-        if transform.translation.y < 0.0 {
-            transform.translation.y = 0.0;
-            // controller.jumping = false;
-        }
+        // if transform.translation.y < 0.0 {
+        //     transform.translation.y = 0.0;
+        //     // controller.jumping = false;
+        // }
     }
 }
