@@ -1,6 +1,7 @@
 use crate::cameras::tag::*;
 use crate::controllers::tag::*;
 use crate::look::*;
+use crate::scale::M_TO_UNIT_SCALE;
 use bevy::prelude::*;
 use rand::Rng;
 
@@ -15,8 +16,8 @@ pub struct CharacterSettings {
 impl Default for CharacterSettings {
     fn default() -> Self {
         Self {
-            scale: Vec3::new(0.5, 1.9, 0.3),
-            head_scale: 0.3,
+            scale: Vec3::new(0.3, 0.5, 1.9) / M_TO_UNIT_SCALE,
+            head_scale: 0.3 / M_TO_UNIT_SCALE,
             head_yaw: 0.0,
             follow_offset: Vec3::new(0.0, 0.0, 0.0), // Relative to head
             focal_point: Vec3::ZERO,                 // Relative to head

@@ -1,7 +1,6 @@
 use crate::gravity::{body::*, resources::Gravity};
+use crate::scale::*;
 use bevy::prelude::*;
-
-const AU_TO_UNIT_SCALE: f32 = 100.0;
 
 pub fn spawn_planets(
     mut commands: Commands,
@@ -16,7 +15,7 @@ pub fn spawn_planets(
     commands
         .spawn_bundle(PbrBundle {
             mesh: meshes.add(Mesh::from(shape::Icosphere {
-                radius: 2.8,
+                radius: 695_508.0 / KM_TO_UNIT_SCALE,
                 subdivisions: 10,
             })),
             material: materials.add(StandardMaterial {
@@ -31,7 +30,7 @@ pub fn spawn_planets(
         .insert(Light {
             color: Color::WHITE,
             intensity: 100_000.0,
-            range: 2000.0,
+            range: 200_000.0,
             ..Default::default()
         });
 
@@ -41,13 +40,14 @@ pub fn spawn_planets(
             commands
                 .spawn_bundle(PbrBundle {
                     mesh: meshes.add(Mesh::from(shape::Icosphere {
-                        radius: $radius / 10_000.0,
+                        radius: $radius / KM_TO_UNIT_SCALE,
                         subdivisions: 5,
                     })),
                     material: materials.add(StandardMaterial {
                         base_color: $col.into(),
                         roughness: 0.6,
                         reflectance: 0.1,
+                        emissive: $col.into(),
                         ..Default::default()
                     }),
                     ..Default::default()
@@ -64,7 +64,7 @@ pub fn spawn_planets(
         m=0.3302,
         pos=(3.044170697902298E-01, 1.295114876282963E-01, -1.734104195212369E-02),
         vel=(-1.648628006573339E-02, 2.713585294570181E-02, 3.729745700066048E-03),
-        r=2440.0,
+        r=2439.7,
         col=Color::ORANGE_RED,
     );
 

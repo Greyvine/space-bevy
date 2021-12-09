@@ -1,5 +1,6 @@
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::input::system::exit_on_esc_system;
+use bevy::pbr::AmbientLight;
 // use bevy::pbr::AmbientLight;
 use bevy::prelude::*;
 use space::cameras::third_person::*;
@@ -16,13 +17,13 @@ fn main() {
             head_yaw: 0.0,
             ..Default::default()
         })
-        // .insert_resource(AmbientLight {
-        //     color: Color::WHITE,
-        //     brightness: 0.1,
-        // })
+        .insert_resource(AmbientLight {
+            color: Color::WHITE,
+            brightness: 0.5,
+        })
         .init_resource::<Gravity>()
         .init_resource::<CharacterSettings>()
-        .insert_resource(ClearColor(Color::rgb(0.0, 0.0, 0.0)))
+        .insert_resource(ClearColor(Color::WHITE))
         .insert_resource(Msaa { samples: 4 })
         .add_plugins(DefaultPlugins)
         .add_plugin(CharacterControllerPlugin)
