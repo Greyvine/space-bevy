@@ -1,7 +1,9 @@
 use crate::cameras::tag::*;
 use crate::controllers::tag::*;
 use crate::look::*;
+use crate::scale::{convert_metres_to_units, AU_TO_UNIT_SCALE, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
+use bevy::render::camera::PerspectiveProjection;
 use rand::Rng;
 
 pub struct CharacterSettings {
@@ -15,8 +17,8 @@ pub struct CharacterSettings {
 impl Default for CharacterSettings {
     fn default() -> Self {
         Self {
-            scale: Vec3::new(0.5, 1.9, 0.3),
-            head_scale: 0.3,
+            scale: convert_metres_to_units(Vec3::new(0.3, 0.5, 1.9)),
+            head_scale: 0.3 * M_TO_UNIT_SCALE,
             head_yaw: 0.0,
             follow_offset: Vec3::new(0.0, 0.0, 0.0), // Relative to head
             focal_point: Vec3::ZERO,                 // Relative to head
@@ -33,6 +35,12 @@ pub fn spawn_character(
     let box_y = 1.0;
     let cube = meshes.add(Mesh::from(shape::Cube { size: 1.0 }));
     let red = materials.add(Color::hex("800000").unwrap().into());
+
+    let pos = Vec3::new(
+        -8.873674344461769E-01,
+        -4.697992257377307E-01,
+        2.381003809013169E-05,
+    ) * AU_TO_UNIT_SCALE;
 
     let body_model = commands
         .spawn_bundle(PbrBundle {
@@ -52,8 +60,11 @@ pub fn spawn_character(
         })
         .id();
 
+    let mut r = Transform::identity();
+    r.translation += pos;
+
     let body = commands
-        .spawn_bundle((GlobalTransform::identity(), Transform::identity(), BodyTag))
+        .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
         .id();
 
     let yaw = commands
@@ -93,6 +104,10 @@ pub fn spawn_character(
                 character_settings.focal_point,
                 Vec3::Y,
             )),
+            perspective_projection: PerspectiveProjection {
+                far: 1_000_000_000.0,
+                ..Default::default()
+            },
             ..Default::default()
         })
         .insert_bundle((LookDirection::default(), CameraTag))
