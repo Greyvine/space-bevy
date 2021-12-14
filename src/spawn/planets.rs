@@ -1,4 +1,5 @@
 use crate::gravity::{body::*, resources::Gravity};
+
 use crate::scale::*;
 use bevy::prelude::*;
 
@@ -11,11 +12,13 @@ pub fn spawn_planets(
     const DAY: f32 = 86_400.0;
     g.0 *= DAY * DAY * 10.0f32.powi(-6) / 1.5f32.powi(3);
 
+    print_scales();
+
     let sun = BodyBundle::new(1_988_500.0, Vec3::ZERO, Vec3::ZERO);
     commands
         .spawn_bundle(PbrBundle {
             mesh: meshes.add(Mesh::from(shape::Icosphere {
-                radius: 695_508.0 / KM_TO_UNIT_SCALE,
+                radius: 695_508.0 * KM_TO_UNIT_SCALE,
                 subdivisions: 10,
             })),
             material: materials.add(StandardMaterial {
@@ -29,8 +32,8 @@ pub fn spawn_planets(
         .insert_bundle(sun)
         .insert(Light {
             color: Color::WHITE,
-            intensity: 100_000.0,
-            range: 200_000.0,
+            intensity: 0.5 * AU_TO_UNIT_SCALE,
+            range: 0.25 * AU_TO_UNIT_SCALE,
             ..Default::default()
         });
 
@@ -40,7 +43,7 @@ pub fn spawn_planets(
             commands
                 .spawn_bundle(PbrBundle {
                     mesh: meshes.add(Mesh::from(shape::Icosphere {
-                        radius: $radius / KM_TO_UNIT_SCALE,
+                        radius: $radius * KM_TO_UNIT_SCALE,
                         subdivisions: 5,
                     })),
                     material: materials.add(StandardMaterial {

@@ -8,4 +8,5 @@ pub mod utils;
 
 pub mod look;
 
+#[macro_use]
 pub mod scale;
