@@ -2,6 +2,7 @@ use crate::gravity::{body::*, resources::Gravity};
 
 use crate::scale::*;
 use bevy::prelude::*;
+use bevy_dynamic_object_scaling::tags::ScalingObjectTag;
 
 pub fn spawn_planets(
     mut commands: Commands,
@@ -12,9 +13,9 @@ pub fn spawn_planets(
     const DAY: f32 = 86_400.0;
     g.0 *= DAY * DAY * 10.0f32.powi(-6) / 1.5f32.powi(3);
 
-    print_scales();
+    let radius = 1.0;
 
-    let sun = BodyBundle::new(1_988_500.0, Vec3::ZERO, Vec3::ZERO);
+    let sun = BodyBundle::new(1_988_500.0, Vec3::new(0.0, 0.0, -(radius * 2.0) * KM_TO_UNIT_SCALE), Vec3::ZERO);
     commands
         .spawn_bundle(PbrBundle {
             mesh: meshes.add(Mesh::from(shape::Icosphere {
@@ -29,6 +30,7 @@ pub fn spawn_planets(
             }),
             ..Default::default()
         })
+        .insert(ScalingObjectTag)
         .insert_bundle(sun)
         .insert(Light {
             color: Color::WHITE,
@@ -43,7 +45,7 @@ pub fn spawn_planets(
             commands
                 .spawn_bundle(PbrBundle {
                     mesh: meshes.add(Mesh::from(shape::Icosphere {
-                        radius: $radius * KM_TO_UNIT_SCALE,
+                        radius: $radius * 0.0001,
                         subdivisions: 5,
                     })),
                     material: materials.add(StandardMaterial {
@@ -55,6 +57,7 @@ pub fn spawn_planets(
                     }),
                     ..Default::default()
                 })
+                .insert(ScalingObjectTag)
                 .insert_bundle($name);
         };
     }

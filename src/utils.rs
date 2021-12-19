@@ -4,6 +4,7 @@ use crate::look::*;
 use crate::scale::{convert_metres_to_units, AU_TO_UNIT_SCALE, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
 use bevy::render::camera::PerspectiveProjection;
+use bevy_dynamic_object_scaling::tags::ScalingCameraTag;
 use rand::Rng;
 
 pub struct CharacterSettings {
@@ -64,7 +65,7 @@ pub fn spawn_character(
     r.translation += pos;
 
     let body = commands
-        .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
+        .spawn_bundle((GlobalTransform::identity(), r, BodyTag, ScalingCameraTag))
         .id();
 
     let yaw = commands

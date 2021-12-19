@@ -3,6 +3,7 @@ use bevy::input::system::exit_on_esc_system;
 use bevy::pbr::AmbientLight;
 // use bevy::pbr::AmbientLight;
 use bevy::prelude::*;
+use bevy_dynamic_object_scaling::DynamicObjectScalingPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use space::cameras::third_person::*;
 use space::controllers::character::*;
@@ -37,5 +38,6 @@ fn main() {
         // .add_startup_system(spawn_world.system())
         .add_startup_system(spawn_planets.system())
         .add_plugin(WorldInspectorPlugin::new())
+        .add_plugin(DynamicObjectScalingPlugin)
         .run();
 }

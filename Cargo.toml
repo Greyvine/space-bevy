@@ -3,10 +3,13 @@ name = "space"
 version = "0.1.0"
 authors = ["GUTTERTRASH <shagohad@gmail.com>"]
 edition = "2018"
+categories = ["game-engines", "graphics", "gui", "rendering"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = ["crates/*"]
 
 [dependencies]
 bevy = { version = "0.5.0", features = ["dynamic"] }
 bevy-inspector-egui = "*"
+bevy_dynamic_object_scaling = { path = "crates/bevy_dynamic_object_scaling" }
 rand = "0.8"
