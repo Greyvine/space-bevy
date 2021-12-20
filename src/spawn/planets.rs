@@ -13,13 +13,11 @@ pub fn spawn_planets(
     const DAY: f32 = 86_400.0;
     g.0 *= DAY * DAY * 10.0f32.powi(-6) / 1.5f32.powi(3);
 
-    let radius = 1.0;
-
-    let sun = BodyBundle::new(1_988_500.0, Vec3::new(0.0, 0.0, -(radius * 2.0) * KM_TO_UNIT_SCALE), Vec3::ZERO);
+    let sun = BodyBundle::new(1_988_500.0, Vec3::ZERO, Vec3::ZERO);
     commands
         .spawn_bundle(PbrBundle {
             mesh: meshes.add(Mesh::from(shape::Icosphere {
-                radius: 695_508.0 * KM_TO_UNIT_SCALE,
+                radius: 695_508.0 * KM_TO_UNIT_SCALE * 0.1,
                 subdivisions: 10,
             })),
             material: materials.add(StandardMaterial {
@@ -30,6 +28,7 @@ pub fn spawn_planets(
             }),
             ..Default::default()
         })
+        .insert(Name::new("sun"))
         .insert(ScalingObjectTag)
         .insert_bundle(sun)
         .insert(Light {
@@ -45,7 +44,7 @@ pub fn spawn_planets(
             commands
                 .spawn_bundle(PbrBundle {
                     mesh: meshes.add(Mesh::from(shape::Icosphere {
-                        radius: $radius * 0.0001,
+                        radius: $radius * KM_TO_UNIT_SCALE,
                         subdivisions: 5,
                     })),
                     material: materials.add(StandardMaterial {
@@ -58,6 +57,7 @@ pub fn spawn_planets(
                     ..Default::default()
                 })
                 .insert(ScalingObjectTag)
+                .insert(Name::new(stringify!($name)))
                 .insert_bundle($name);
         };
     }
@@ -71,7 +71,7 @@ pub fn spawn_planets(
         pos=(3.044170697902298E-01, 1.295114876282963E-01, -1.734104195212369E-02),
         vel=(-1.648628006573339E-02, 2.713585294570181E-02, 3.729745700066048E-03),
         r=2439.7,
-        col=Color::ORANGE_RED,
+        col=Color::GRAY,
     );
 
     #[rustfmt::skip]
@@ -91,7 +91,7 @@ pub fn spawn_planets(
         pos=(-8.873674344461769E-01, -4.697992257377307E-01, 2.381003809013169E-05),
         vel=(7.775921491692710E-03, -1.526923260035268E-02, 1.329236295796724E-07),
         r=6371.01,
-        col=Color::BLUE,
+        col=Color::TURQUOISE,
     );
     #[rustfmt::skip]
     spawn_planet!(

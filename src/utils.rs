@@ -37,11 +37,11 @@ pub fn spawn_character(
     let cube = meshes.add(Mesh::from(shape::Cube { size: 1.0 }));
     let red = materials.add(Color::hex("800000").unwrap().into());
 
-    let pos = Vec3::new(
-        -8.873674344461769E-01,
-        -4.697992257377307E-01,
-        2.381003809013169E-05,
-    ) * AU_TO_UNIT_SCALE;
+    // let pos = Vec3::new(
+    //     -8.873674344461769E-01,
+    //     -4.697992257377307E-01,
+    //     2.381003809013169E-05,
+    // ) * AU_TO_UNIT_SCALE;
 
     let body_model = commands
         .spawn_bundle(PbrBundle {
@@ -62,7 +62,7 @@ pub fn spawn_character(
         .id();
 
     let mut r = Transform::identity();
-    r.translation += pos;
+    // r.translation += pos;
 
     let body = commands
         .spawn_bundle((GlobalTransform::identity(), r, BodyTag, ScalingCameraTag))
