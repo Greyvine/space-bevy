@@ -2,6 +2,7 @@ use crate::controllers::event::*;
 use crate::controllers::tag::*;
 use crate::look::*;
 use bevy::prelude::*;
+use bevy_dynamic_object_scaling::events::ScalingTranslationEvent;
 
 pub const INPUT_TO_EVENTS_SYSTEM: &str = "input_to_events";
 pub const FORWARD_UP_SYSTEM: &str = "forward_up";
@@ -58,14 +59,20 @@ fn handle_input(
         if keys.pressed(KeyCode::A) {
             desired_velocity -= right;
         }
-        if keys.pressed(KeyCode::Space) {
+        if keys.pressed(KeyCode::Q) {
             desired_velocity += up;
         }
-        if keys.pressed(KeyCode::LShift) {
+        if keys.pressed(KeyCode::E) {
             desired_velocity -= up;
         }
 
-        desired_velocity *= 0.5;
+        let speed = if keys.pressed(KeyCode::LShift) {
+            2.0
+        } else {
+            0.5
+        };
+
+        desired_velocity *= speed;
 
         force_events.send(ForceEvent::new(&desired_velocity))
     }
@@ -74,11 +81,13 @@ fn handle_input(
 fn controller_to_kinematic(
     mut translations: EventReader<ForceEvent>,
     mut query: Query<&mut Transform, With<BodyTag>>,
+    mut scale_events: EventWriter<ScalingTranslationEvent>,
 ) {
     for mut transform in query.iter_mut() {
         for translation in translations.iter() {
             transform.translation += **translation;
         }
+        scale_events.send(ScalingTranslationEvent::new(&transform.translation));
         // NOTE: This is just an example to stop falling past the initial body height
         // With a physics engine you would indicate that the body has collided with
         // something and should stop, depending on how your game works.

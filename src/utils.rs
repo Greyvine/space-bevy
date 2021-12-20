@@ -1,7 +1,7 @@
 use crate::cameras::tag::*;
 use crate::controllers::tag::*;
 use crate::look::*;
-use crate::scale::{convert_metres_to_units, AU_TO_UNIT_SCALE, M_TO_UNIT_SCALE};
+use crate::scale::{convert_metres_to_units, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
 use bevy::render::camera::PerspectiveProjection;
 use rand::Rng;
@@ -36,11 +36,11 @@ pub fn spawn_character(
     let cube = meshes.add(Mesh::from(shape::Cube { size: 1.0 }));
     let red = materials.add(Color::hex("800000").unwrap().into());
 
-    let pos = Vec3::new(
-        -8.873674344461769E-01,
-        -4.697992257377307E-01,
-        2.381003809013169E-05,
-    ) * AU_TO_UNIT_SCALE;
+    // let pos = Vec3::new(
+    //     -8.873674344461769E-01,
+    //     -4.697992257377307E-01,
+    //     2.381003809013169E-05,
+    // ) * AU_TO_UNIT_SCALE;
 
     let body_model = commands
         .spawn_bundle(PbrBundle {
@@ -60,8 +60,8 @@ pub fn spawn_character(
         })
         .id();
 
-    let mut r = Transform::identity();
-    r.translation += pos;
+    let r = Transform::identity();
+    // r.translation += pos;
 
     let body = commands
         .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
@@ -140,10 +140,6 @@ pub fn spawn_world(
     mut meshes: ResMut<Assets<Mesh>>,
 ) {
     let cube = meshes.add(Mesh::from(shape::Cube { size: 1.0 }));
-
-    let grey = materials.add(Color::hex("808080").unwrap().into());
-    let box_xz = 200.0;
-    let box_y = 1.0;
 
     // Ground cuboid
     let grey = materials.add(Color::hex("808080").unwrap().into());
