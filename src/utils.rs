@@ -1,10 +1,9 @@
 use crate::cameras::tag::*;
 use crate::controllers::tag::*;
 use crate::look::*;
-use crate::scale::{convert_metres_to_units, AU_TO_UNIT_SCALE, M_TO_UNIT_SCALE};
+use crate::scale::{convert_metres_to_units, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
 use bevy::render::camera::PerspectiveProjection;
-use bevy_dynamic_object_scaling::tags::ScalingCameraTag;
 use rand::Rng;
 
 pub struct CharacterSettings {
@@ -61,11 +60,11 @@ pub fn spawn_character(
         })
         .id();
 
-    let mut r = Transform::identity();
+    let r = Transform::identity();
     // r.translation += pos;
 
     let body = commands
-        .spawn_bundle((GlobalTransform::identity(), r, BodyTag, ScalingCameraTag))
+        .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
         .id();
 
     let yaw = commands
@@ -141,10 +140,6 @@ pub fn spawn_world(
     mut meshes: ResMut<Assets<Mesh>>,
 ) {
     let cube = meshes.add(Mesh::from(shape::Cube { size: 1.0 }));
-
-    let grey = materials.add(Color::hex("808080").unwrap().into());
-    let box_xz = 200.0;
-    let box_y = 1.0;
 
     // Ground cuboid
     let grey = materials.add(Color::hex("808080").unwrap().into());

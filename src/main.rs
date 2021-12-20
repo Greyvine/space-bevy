@@ -1,4 +1,4 @@
-use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
+// use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::input::system::exit_on_esc_system;
 use bevy::pbr::AmbientLight;
 // use bevy::pbr::AmbientLight;

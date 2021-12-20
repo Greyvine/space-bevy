@@ -2,20 +2,22 @@ use bevy::prelude::*;
 use std::ops::Deref;
 
 #[derive(Debug, Default)]
-pub struct ScalingCameraEvent {
-    force: Vec3,
+pub struct ScalingTranslationEvent {
+    translation: Vec3,
 }
 
-impl ScalingCameraEvent {
+impl ScalingTranslationEvent {
     pub fn new(other: &Vec3) -> Self {
-        Self { force: *other }
+        Self {
+            translation: *other,
+        }
     }
 }
 
-impl Deref for ScalingCameraEvent {
+impl Deref for ScalingTranslationEvent {
     type Target = Vec3;
 
     fn deref(&self) -> &Self::Target {
-        &self.force
+        &self.translation
     }
 }

@@ -1,48 +1,22 @@
-pub mod tags;
 pub mod events;
+pub mod tags;
 
 use bevy::prelude::*;
-use events::ScalingCameraEvent;
-use tags::{ScalingObjectTag, ScalingCameraTag};
+use events::ScalingTranslationEvent;
+use tags::ScalingObjectTag;
 
 #[derive(Default)]
 pub struct DynamicObjectScalingPlugin;
 
 impl Plugin for DynamicObjectScalingPlugin {
-
     fn build(&self, app: &mut AppBuilder) {
-        app
-            .add_event::<ScalingCameraEvent>()
+        app.add_event::<ScalingTranslationEvent>()
             .add_system(change_scale_with_distance.system());
     }
-
 }
 
-// fn change_scale_with_distance(
-//     mut objects_query: Query<&mut Transform, With<ScalingObjectTag>>,
-//     // camera_query: Query<&Transform, With<ScalingCameraTag>>,
-// ) {
-//     // let camera_transform = camera_query.single().expect("There should only ever be one player in the game!");
-//     let camera_transform = Transform::identity();
-
-//     for mut object_transform in objects_query.iter_mut() {
-        
-//         let distance = (camera_transform.translation).distance(object_transform.translation);
-
-//         let scaling_factor = get_scaling_factor(distance);
-
-//         object_transform.scale = Vec3::new(scaling_factor, scaling_factor, scaling_factor);
-
-//         println!("Distance: {}, Scaling Factor: {}", distance, scaling_factor)
-
-//     }
-
-
-
-// }
-
 fn change_scale_with_distance(
-    mut translations: EventReader<ScalingCameraEvent>,
+    mut translations: EventReader<ScalingTranslationEvent>,
     mut query: Query<&mut Transform, With<ScalingObjectTag>>,
 ) {
     for translation in translations.iter() {
@@ -56,10 +30,6 @@ fn change_scale_with_distance(
     }
 }
 
-
 fn get_scaling_factor(distance: f32) -> f32 {
-    // if (distance > 900.0) {
-         
-    // }
     500.0 / distance
 }
