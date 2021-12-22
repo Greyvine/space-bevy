@@ -208,6 +208,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy-dynamic-billboarding"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
+name = "bevy-dynamic-object-scaling"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "bevy-glsl-to-spirv"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -347,13 +361,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "efa62c7c03470969539a07337bf8c5694c0b952678fd081d68b6331842134b85"
 dependencies = [
  "bevy_internal",
-]
-
-[[package]]
-name = "bevy_dynamic_object_scaling"
-version = "0.1.0"
-dependencies = [
- "bevy",
 ]
 
 [[package]]
@@ -3013,8 +3020,9 @@ name = "space"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy-dynamic-billboarding",
+ "bevy-dynamic-object-scaling",
  "bevy-inspector-egui",
- "bevy_dynamic_object_scaling",
  "rand",
 ]
 

@@ -1,0 +1,13 @@
+[package]
+name = "bevy-dynamic-billboarding"
+version = "0.1.0"
+edition = "2021"
+authors = ["GUTTERTRASH <shagohad@gmail.com>"]
+description = "Scales down large objects dynamically with distance"
+homepage = "https://greyvine.co"
+repository = "https://github.com/Greyvine/space-bevy"
+license = "MIT OR Apache-2.0"
+keywords = ["bevy", "dynamic", "billboard"]
+
+[dependencies]
+bevy = { version = "0.5.0", default-features = false }
