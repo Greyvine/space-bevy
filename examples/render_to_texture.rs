@@ -37,7 +37,7 @@ fn add_render_to_texture_graph(graph: &mut RenderGraph, size: Extent3d) {
             attachment: TextureAttachment::Input("color_attachment".to_string()),
             resolve_target: None,
             ops: Operations {
-                load: LoadOp::Clear(Color::rgb(0.1, 0.2, 0.3)),
+                load: LoadOp::Clear(Color::NONE),
                 store: true,
             },
         }],
