@@ -38,7 +38,7 @@ fn main() {
         .add_startup_system(spawn_character.system())
         // .add_startup_system(spawn_world.system())
         .add_startup_system(spawn_planets.system())
-        // .add_plugin(WorldInspectorPlugin::new())
+        .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(DynamicObjectScalingPlugin)
         .add_plugin(DynamicBillboardingPlugin)
         .run();
