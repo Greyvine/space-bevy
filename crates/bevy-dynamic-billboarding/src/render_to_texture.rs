@@ -36,7 +36,7 @@ pub fn add_render_to_texture_graph(graph: &mut RenderGraph, size: Extent3d) {
             }),
             stencil_ops: None,
         }),
-        sample_count: 4,
+        sample_count: 1,
     });
 
     pass_node.add_camera(FIRST_PASS_CAMERA);
@@ -51,7 +51,7 @@ pub fn add_render_to_texture_graph(graph: &mut RenderGraph, size: Extent3d) {
             TextureDescriptor {
                 size,
                 mip_level_count: 1,
-                sample_count: 4,
+                sample_count: 1,
                 dimension: TextureDimension::D2,
                 format: Default::default(),
                 usage: TextureUsage::OUTPUT_ATTACHMENT | TextureUsage::SAMPLED,
@@ -67,7 +67,7 @@ pub fn add_render_to_texture_graph(graph: &mut RenderGraph, size: Extent3d) {
             TextureDescriptor {
                 size,
                 mip_level_count: 1,
-                sample_count: 4,
+                sample_count: 1,
                 dimension: TextureDimension::D2,
                 format: TextureFormat::Depth32Float,
                 usage: TextureUsage::OUTPUT_ATTACHMENT | TextureUsage::SAMPLED,
@@ -100,5 +100,4 @@ pub fn add_render_to_texture_graph(graph: &mut RenderGraph, size: Extent3d) {
     graph.add_node_edge(FIRST_PASS, MAIN_PASS).unwrap();
 
     graph.add_node_edge("transform", FIRST_PASS).unwrap();
-
 }

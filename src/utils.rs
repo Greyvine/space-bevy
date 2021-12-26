@@ -3,9 +3,9 @@ use crate::controllers::tag::*;
 use crate::look::*;
 use crate::scale::{convert_metres_to_units, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
-use bevy::render::camera::{PerspectiveProjection, Camera};
-use rand::Rng;
+use bevy::render::camera::{Camera, PerspectiveProjection};
 use bevy_dynamic_billboarding::FIRST_PASS_CAMERA;
+use rand::Rng;
 
 pub struct CharacterSettings {
     pub scale: Vec3,

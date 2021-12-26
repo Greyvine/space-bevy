@@ -27,7 +27,7 @@ fn main() {
         .init_resource::<Gravity>()
         .init_resource::<CharacterSettings>()
         .insert_resource(ClearColor(Color::BLACK))
-        .insert_resource(Msaa { samples: 4 })
+        // .insert_resource(Msaa { samples: 4 })
         .add_plugins(DefaultPlugins)
         .add_plugin(CharacterControllerPlugin)
         .add_plugin(ThirdPersonCameraPlugin)
@@ -38,7 +38,7 @@ fn main() {
         .add_startup_system(spawn_character.system())
         // .add_startup_system(spawn_world.system())
         .add_startup_system(spawn_planets.system())
-        .add_plugin(WorldInspectorPlugin::new())
+        // .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(DynamicObjectScalingPlugin)
         .add_plugin(DynamicBillboardingPlugin)
         .run();

@@ -2,6 +2,7 @@ use crate::controllers::event::*;
 use crate::controllers::tag::*;
 use crate::look::*;
 use bevy::prelude::*;
+use bevy_dynamic_billboarding::events::BillboardingTranslationEvent;
 use bevy_dynamic_object_scaling::events::ScalingTranslationEvent;
 
 pub const INPUT_TO_EVENTS_SYSTEM: &str = "input_to_events";
@@ -82,12 +83,14 @@ fn controller_to_kinematic(
     mut translations: EventReader<ForceEvent>,
     mut query: Query<&mut Transform, With<BodyTag>>,
     mut scale_events: EventWriter<ScalingTranslationEvent>,
+    mut billboarding_events: EventWriter<BillboardingTranslationEvent>,
 ) {
     for mut transform in query.iter_mut() {
         for translation in translations.iter() {
             transform.translation += **translation;
         }
         scale_events.send(ScalingTranslationEvent::new(&transform.translation));
+        billboarding_events.send(BillboardingTranslationEvent::new(&transform.translation));
         // NOTE: This is just an example to stop falling past the initial body height
         // With a physics engine you would indicate that the body has collided with
         // something and should stop, depending on how your game works.
