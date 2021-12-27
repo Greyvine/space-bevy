@@ -2,6 +2,7 @@ use crate::gravity::{body::*, resources::Gravity};
 
 use crate::scale::*;
 use bevy::prelude::*;
+use bevy_dynamic_billboarding::tags::FirstPass;
 use bevy_dynamic_object_scaling::tags::ScalingObjectTag;
 
 pub fn spawn_planets(
@@ -28,6 +29,7 @@ pub fn spawn_planets(
             }),
             ..Default::default()
         })
+        .insert(FirstPass)
         .insert(Name::new("sun"))
         .insert(ScalingObjectTag)
         .insert_bundle(sun)

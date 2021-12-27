@@ -11,5 +11,10 @@ members = ["crates/*"]
 [dependencies]
 bevy = { version = "0.5.0", features = ["dynamic"] }
 bevy-inspector-egui = "*"
-bevy_dynamic_object_scaling = { path = "crates/bevy_dynamic_object_scaling" }
+bevy-dynamic-object-scaling = { path = "crates/bevy-dynamic-object-scaling" }
+bevy-dynamic-billboarding = { path = "crates/bevy-dynamic-billboarding" }
 rand = "0.8"
+
+[[example]]
+name = "render_to_texture"
+path = "examples/render_to_texture.rs"

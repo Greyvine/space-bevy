@@ -3,6 +3,7 @@ use bevy::input::system::exit_on_esc_system;
 use bevy::pbr::AmbientLight;
 // use bevy::pbr::AmbientLight;
 use bevy::prelude::*;
+use bevy_dynamic_billboarding::DynamicBillboardingPlugin;
 use bevy_dynamic_object_scaling::DynamicObjectScalingPlugin;
 use bevy_inspector_egui::WorldInspectorPlugin;
 use space::cameras::third_person::*;
@@ -26,7 +27,7 @@ fn main() {
         .init_resource::<Gravity>()
         .init_resource::<CharacterSettings>()
         .insert_resource(ClearColor(Color::BLACK))
-        .insert_resource(Msaa { samples: 4 })
+        // .insert_resource(Msaa { samples: 4 })
         .add_plugins(DefaultPlugins)
         .add_plugin(CharacterControllerPlugin)
         .add_plugin(ThirdPersonCameraPlugin)
@@ -39,5 +40,6 @@ fn main() {
         .add_startup_system(spawn_planets.system())
         .add_plugin(WorldInspectorPlugin::new())
         .add_plugin(DynamicObjectScalingPlugin)
+        .add_plugin(DynamicBillboardingPlugin)
         .run();
 }

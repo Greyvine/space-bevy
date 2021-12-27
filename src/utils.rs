@@ -3,7 +3,8 @@ use crate::controllers::tag::*;
 use crate::look::*;
 use crate::scale::{convert_metres_to_units, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
-use bevy::render::camera::PerspectiveProjection;
+use bevy::render::camera::{Camera, PerspectiveProjection};
+use bevy_dynamic_billboarding::FIRST_PASS_CAMERA;
 use rand::Rng;
 
 pub struct CharacterSettings {
@@ -65,6 +66,7 @@ pub fn spawn_character(
 
     let body = commands
         .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
+        .insert(Name::new("player"))
         .id();
 
     let yaw = commands
@@ -99,6 +101,11 @@ pub fn spawn_character(
 
     let camera = commands
         .spawn_bundle(PerspectiveCameraBundle {
+            // camera: Camera {
+            //     name: Some(FIRST_PASS_CAMERA.to_string()),
+            //     // window: WindowId::new(), // otherwise it will use main window size / aspect for calculation of projection matrix
+            //     ..Default::default()
+            // },
             transform: Transform::from_matrix(Mat4::face_toward(
                 character_settings.follow_offset,
                 character_settings.focal_point,

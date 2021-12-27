@@ -1,5 +1,5 @@
 [package]
-name = "bevy_dynamic_object_scaling"
+name = "bevy-dynamic-object-scaling"
 version = "0.1.0"
 edition = "2021"
 authors = ["GUTTERTRASH <shagohad@gmail.com>"]
@@ -7,7 +7,7 @@ description = "Scales down large objects dynamically with distance"
 homepage = "https://greyvine.co"
 repository = "https://github.com/Greyvine/space-bevy"
 license = "MIT OR Apache-2.0"
-keywords = ["bevy", "dynamic", "scaling"]
+keywords = ["bevy", "dynamic", "scale", "scaling"]
 
 [dependencies]
 bevy = { version = "0.5.0", default-features = false }
