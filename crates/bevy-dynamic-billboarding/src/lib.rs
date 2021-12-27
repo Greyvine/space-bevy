@@ -124,22 +124,24 @@ fn setup_simple(
     // });
 
     let cube_size = 695_508.0 * 0.0001 * 0.1 * 2.0;
-    commands.spawn_bundle(PbrBundle {
-        mesh: meshes.add(Mesh::from(shape::Quad {
-            size: Vec2::ONE * cube_size,
-            flip: false,
-        })),
-        render_pipelines: RenderPipelines::from_pipelines(vec![RenderPipeline::new(
-            pipeline_handle,
-        )]),
-        material: material_handle,
-        transform: Transform::from_xyz(15.0, 0.0, 0.0),
-        visible: Visible {
-            is_transparent: true,
+    commands
+        .spawn_bundle(PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Quad {
+                size: Vec2::ONE * cube_size,
+                flip: false,
+            })),
+            render_pipelines: RenderPipelines::from_pipelines(vec![RenderPipeline::new(
+                pipeline_handle,
+            )]),
+            material: material_handle,
+            transform: Transform::from_xyz(15.0, 0.0, 0.0),
+            visible: Visible {
+                is_transparent: true,
+                ..Default::default()
+            },
             ..Default::default()
-        },
-        ..Default::default()
-    });
+        })
+        .insert(Name::new("billboard"));
     // .insert(material);
 }
 

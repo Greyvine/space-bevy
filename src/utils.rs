@@ -66,6 +66,7 @@ pub fn spawn_character(
 
     let body = commands
         .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
+        .insert(Name::new("player"))
         .id();
 
     let yaw = commands
