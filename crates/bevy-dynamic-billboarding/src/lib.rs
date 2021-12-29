@@ -43,9 +43,8 @@ pub struct DynamicBillboardingPlugin;
 
 impl Plugin for DynamicBillboardingPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_event::<BillboardingTranslationEvent>()
-            .add_asset::<MyMaterial>()
-            .add_startup_system(setup_simple.system());
+        app.add_event::<BillboardingTranslationEvent>();
+        // .add_startup_system(setup_simple.system());
         // .add_startup_system(setup_pipeline.system())
         // .add_startup_system(setup_simple.system());
     }

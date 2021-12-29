@@ -253,6 +253,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy-origin-rebasing"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy-inspector-egui",
+]
+
+[[package]]
 name = "bevy_app"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3023,6 +3031,7 @@ dependencies = [
  "bevy-dynamic-billboarding",
  "bevy-dynamic-object-scaling",
  "bevy-inspector-egui",
+ "bevy-origin-rebasing",
  "rand",
 ]
 

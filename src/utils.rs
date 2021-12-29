@@ -4,7 +4,9 @@ use crate::look::*;
 use crate::scale::{convert_metres_to_units, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
 use bevy::render::camera::{Camera, PerspectiveProjection};
+use bevy::render::wireframe::Wireframe;
 use bevy_dynamic_billboarding::FIRST_PASS_CAMERA;
+use bevy_origin_rebasing::{SimulationCoordinates, PlayerTag, NonPlayerTag};
 use rand::Rng;
 
 pub struct CharacterSettings {
@@ -59,6 +61,7 @@ pub fn spawn_character(
             )),
             ..Default::default()
         })
+        .insert(Wireframe)
         .id();
 
     let r = Transform::identity();
@@ -67,6 +70,8 @@ pub fn spawn_character(
     let body = commands
         .spawn_bundle((GlobalTransform::identity(), r, BodyTag))
         .insert(Name::new("player"))
+        .insert(SimulationCoordinates::default())
+        .insert(PlayerTag)
         .id();
 
     let yaw = commands
@@ -97,6 +102,7 @@ pub fn spawn_character(
             transform: Transform::from_scale(Vec3::splat(character_settings.head_scale)),
             ..Default::default()
         })
+        .insert(Wireframe)
         .id();
 
     let camera = commands
@@ -178,4 +184,30 @@ pub fn spawn_world(
             ..Default::default()
         });
     }
+}
+
+pub fn spawn_marker(
+    mut commands: Commands,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+    mut meshes: ResMut<Assets<Mesh>>,
+) {
+    commands
+        .spawn_bundle(PbrBundle {
+            material: materials.add(StandardMaterial {
+                base_color: Color::TOMATO.into(),
+                roughness: 0.6,
+                ..Default::default()
+            }),
+            mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+            transform: Transform::from_matrix(Mat4::from_scale_rotation_translation(
+                Vec3::splat(1.0),
+                Quat::IDENTITY,
+                -Vec3::Z * 2.0,
+            )),
+            ..Default::default()
+        })
+        .insert(SimulationCoordinates::default())
+        .insert(Wireframe)
+        .insert(NonPlayerTag)
+        .insert(Name::new("marker"));
 }
