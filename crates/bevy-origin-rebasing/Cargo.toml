@@ -12,3 +12,4 @@ keywords = ["bevy", "dynamic", "scale", "scaling"]
 [dependencies]
 bevy = { version = "0.5.0", default-features = false }
 bevy-inspector-egui = "*"
+bevy_prototype_debug_lines = "0.3.2"

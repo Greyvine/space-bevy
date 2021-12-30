@@ -8,7 +8,7 @@ use bevy::wgpu::{WgpuFeature, WgpuFeatures, WgpuOptions};
 use bevy_dynamic_billboarding::DynamicBillboardingPlugin;
 use bevy_dynamic_object_scaling::DynamicObjectScalingPlugin;
 use bevy_inspector_egui::{InspectableRegistry, WorldInspectorPlugin};
-use bevy_origin_rebasing::{OriginRebasingPlugin, SimulationCoordinates};
+use bevy_origin_rebasing::{OriginRebasingPlugin, SimulationBundle, SimulationCoordinates};
 use space::cameras::third_person::*;
 use space::controllers::character::*;
 use space::gravity::resources::Gravity;

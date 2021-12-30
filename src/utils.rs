@@ -1,12 +1,12 @@
 use crate::cameras::tag::*;
 use crate::controllers::tag::*;
 use crate::look::*;
-use crate::scale::{convert_metres_to_units, M_TO_UNIT_SCALE};
+use crate::scale::{convert_metres_to_units, KM_TO_UNIT_SCALE, M_TO_UNIT_SCALE};
 use bevy::prelude::*;
 use bevy::render::camera::{Camera, PerspectiveProjection};
 use bevy::render::wireframe::Wireframe;
 use bevy_dynamic_billboarding::FIRST_PASS_CAMERA;
-use bevy_origin_rebasing::{SimulationCoordinates, PlayerTag, NonPlayerTag};
+use bevy_origin_rebasing::{NonPlayerTag, PlayerTag, SimulationBundle, SimulationCoordinates};
 use rand::Rng;
 
 pub struct CharacterSettings {
@@ -199,15 +199,36 @@ pub fn spawn_marker(
                 ..Default::default()
             }),
             mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
-            transform: Transform::from_matrix(Mat4::from_scale_rotation_translation(
-                Vec3::splat(1.0),
-                Quat::IDENTITY,
-                -Vec3::Z * 2.0,
-            )),
             ..Default::default()
         })
-        .insert(SimulationCoordinates::default())
+        // .insert(SimulationCoordinates::default())
+        .insert_bundle(SimulationBundle::new(-Vec3::Z * 20.0))
         .insert(Wireframe)
         .insert(NonPlayerTag)
         .insert(Name::new("marker"));
 }
+
+// pub fn spawn_marker(
+//     mut commands: Commands,
+//     mut materials: ResMut<Assets<StandardMaterial>>,
+//     mut meshes: ResMut<Assets<Mesh>>,
+// ) {
+//     let radius = 6051.84;
+//     commands
+//         .spawn_bundle(PbrBundle {
+//             material: materials.add(StandardMaterial {
+//                 base_color: Color::NAVY.into(),
+//                 roughness: 0.6,
+//                 ..Default::default()
+//             }),
+//             mesh: meshes.add(Mesh::from(shape::Icosphere {
+//                 radius: radius * KM_TO_UNIT_SCALE,
+//                 subdivisions: 20,
+//             })),
+//             ..Default::default()
+//         })
+//         .insert_bundle(SimulationBundle::new(-Vec3::Z * radius * KM_TO_UNIT_SCALE * 4.0))
+//         // .insert(Wireframe)
+//         .insert(NonPlayerTag)
+//         .insert(Name::new("marker"));
+// }
