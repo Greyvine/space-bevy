@@ -68,7 +68,7 @@ fn handle_input(
         }
 
         let speed = if keys.pressed(KeyCode::LShift) {
-            2.0
+            200.0
         } else {
             0.5
         };
