@@ -13,6 +13,7 @@ bevy = { version = "0.5.0", features = ["dynamic"] }
 bevy-inspector-egui = "*"
 bevy-dynamic-object-scaling = { path = "crates/bevy-dynamic-object-scaling" }
 bevy-dynamic-billboarding = { path = "crates/bevy-dynamic-billboarding" }
+bevy-origin-rebasing = { path = "crates/bevy-origin-rebasing" }
 rand = "0.8"
 
 [[example]]
